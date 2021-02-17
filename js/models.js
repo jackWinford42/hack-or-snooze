@@ -205,4 +205,28 @@ class User {
       return null;
     }
   }
+
+  //update the color of a stories corresponding star and change its favorite
+  //status in the api 
+  async favoriteStory(evt) {
+    if ($(this).css('color') === "rgb(0, 0, 0)") {
+      $(this).css('color', 'rgb(255, 215, 0)');
+      const token = currentUser.loginToken;
+      const favoriteData = await axios({
+        url: `${BASE_URL}/users/${currentUser.username}/favorites/${$(this).closest('li').attr("id")}`,
+        method: "POST",
+        data: { token },
+      });
+      currentUser.favorites = favoriteData.data.user.favorites.map(s => new Story(s));
+    } else {
+      $(this).css('color', 'rgb(0, 0, 0)');
+      const token = currentUser.loginToken;
+      const favoriteData = await axios({
+        url: `${BASE_URL}/users/${currentUser.username}/favorites/${$(this).closest('li').attr("id")}`,
+        method: "DELETE",
+        data: { token },
+      });
+      currentUser.favorites = favoriteData.data.user.favorites.map(s => new Story(s));
+    }
+  }
 }

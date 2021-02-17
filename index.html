@@ -40,6 +40,8 @@
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
     <a class="nav-link" href="#" id="nav-user-profile"></a>
+    <a class="nav-link" href="#" id="nav-submit-story">submit</a>
+    <a class="nav-link" href="#" id="nav-favorites">favorites</a>
     <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
   </div>
 </nav>
@@ -52,6 +54,17 @@
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
+
+</section>
+
+<!-- area just for favorite stories -->
+<section class="favorite-stories-container container hidden">
+
+  <!-- loading message (removed by JS after stories loaded) -->
+  <div id="favorite-stories-loading-msg">Loading&hellip;</div>
+  
+  <!-- List of favorite stories -->
+  <ol id="favorite-stories-list" class="favorite-stories-list"></ol>
 
 </section>
 
@@ -93,6 +106,30 @@
       <input id="signup-password" autocomplete="new-password" type="password">
     </div>
     <button type="submit">create account</button>
+  </form>
+</section>
+
+<!-- adding a story form -->
+<section>
+  <form
+    action="#"
+    id="story-form"
+    class="story-form hidden"
+    method="post">
+  <h4>Create Account</h4>
+  <div class="login-input">
+    <label for="story-title">title</label>
+    <input id="story-title" type="text" autocapitalize="words">
+  </div>
+  <div class="login-input">
+    <label for="story-author">author</label>
+    <input id="story-author" type="text">
+  </div>
+  <div class="login-input">
+    <label for="story-url">url</label>
+    <input id="story-url" type="url">
+  </div>
+  <button id="story-submit" type="submit">post story</button>
   </form>
 </section>
 
