@@ -59,20 +59,23 @@ function putStoriesOnPage() {
 
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
+    
     const $story = generateStoryMarkup(story);
     $allStoriesList.append($story);
-
-    $(`#${story.storyId} .star`).on("click", currentUser.favoriteStory);
-    
     $(`#${story.storyId} .trash`).on("click", removeStory);
 
-    for (let i = 0; i < currentUser.favorites.length; i++) {
-      if (story.storyId === currentUser.favorites[i].storyId) {
-        $(`#${story.storyId} .star`).css('color', 'rgb(255, 215, 0)');
+    if (currentUser !== undefined) {
+
+      $(`#${story.storyId} .star`).on("click", currentUser.favoriteStory);
+      for (let i = 0; i < currentUser.favorites.length; i++) {
+
+        if (story.storyId === currentUser.favorites[i].storyId) {
+
+          $(`#${story.storyId} .star`).css('color', 'rgb(255, 215, 0)');
+        }
       }
     }
   }
-
   $allStoriesList.show();
 }
 

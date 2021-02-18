@@ -136,7 +136,9 @@ class User {
       method: "POST",
       data: { user: { username, password, name } },
     });
-    //const user = {username, password, name};
+    
+    let { user } = response.data;
+    
     return new User(
       {
         username: user.username,

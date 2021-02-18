@@ -24,7 +24,9 @@ async function login(evt) {
   $loginForm.trigger("reset");
 
   saveUserCredentialsInLocalStorage();
+  putStoriesOnPage()
   updateUIOnUserLogin();
+  $(".account-forms-container").hide();
 }
 
 $loginForm.on("submit", login);
@@ -44,7 +46,9 @@ async function signup(evt) {
   currentUser = await User.signup(username, password, name);
   console.log("made it past User.signup");
   saveUserCredentialsInLocalStorage();
+  putStoriesOnPage()
   updateUIOnUserLogin();
+  $(".account-forms-container").hide();
 
   $signupForm.trigger("reset");
 }
