@@ -29,7 +29,7 @@ function generateStoryMarkup(story) {
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
         <p class="star">&#9733</p>
-        <p class="trash">&#128465</p>
+        <p data-user="${story.username}" class="trash">&#128465</p>
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
@@ -107,12 +107,18 @@ async function getStoryFormData(evt) {
 async function removeStory(evt) {
   evt.preventDefault();
   console.debug("removeStory");
-  await axios({
-    url: `${BASE_URL}/stories/${$(this).closest("li").attr("id")}`,
-    method: "DELETE",
-    data: {"token" : currentUser.loginToken}
-  })
-  $(this).closest("li").remove();
+  if ($(this).data("user") === currentUser.username) {
+    await axios({
+      url: `${BASE_URL}/stories/${$(this).closest("li").attr("id")}`,
+      method: "DELETE",
+      data: {"token" : currentUser.loginToken}
+    })
+    $(this).closest("li").remove();
+    alert("this story has been permanently deleted from the page")
+  } else {
+    $(this).closest("li").remove();
+    alert("this story has only been temporarily deleted because you did not post the story")
+  }
 }
 
 $("#story-submit").on("click", getStoryFormData);

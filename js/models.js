@@ -73,21 +73,30 @@ class StoryList {
    */
 
   async addStory(user, newStory) {
-    const addedStory = await axios({
-      url: `${BASE_URL}/stories`,
-      method: "POST",
-      data: {"token" : user.loginToken,
-      "story": newStory},
-    });
-    const returnStory = new Story({
-      storyId : addedStory.storyId,
-      title : addedStory.title,
-      author : addedStory.author,
-      url : addedStory.url,
-      username : addedStory.username,
-      createdAt : addedStory.createdAt
-    });
-    return returnStory;
+    try {
+      const addedStory = await axios({
+        url: `${BASE_URL}/stories`,
+        method: "POST",
+        data: {"token" : user.loginToken,
+        "story": newStory},
+      });
+      const returnStory = new Story({
+        storyId : addedStory.storyId,
+        title : addedStory.title,
+        author : addedStory.author,
+        url : addedStory.url,
+        username : addedStory.username,
+        createdAt : addedStory.createdAt
+      });
+      alert("Your story has been added successfully (refresh home page to view it)");
+      $storyForm[0].reset();
+      return returnStory;
+    } catch(e) {
+      alert("Something went wrong trying to post your story ");
+      $storyForm[0].reset();
+    }
+
+
   }
 }
 
